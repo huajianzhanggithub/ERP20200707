@@ -36,7 +36,7 @@
     <div>
         <label asp-for="@Model.InventoryCategory" class="form-check-label"></label>
         <select asp-for="@Model.InventoryCategory" asp-items="Model.InventoryCategorys" class="form-control">
-            <option value=""></option>
+            <option value="">默认：03-彩涂板</option>
         </select>
         <span asp-validation-for="@Model.Warehouses" class="text-danger"></span>
     </div>

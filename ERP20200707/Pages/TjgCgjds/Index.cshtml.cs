@@ -83,7 +83,7 @@ namespace ERP20200707.Pages.TjgCgjds
         //                       select new { a.AutoId, a.Id, a.CInvCode, a.IUnitCost, a.IQuantity, a.IPrice };
         //}
 
-        public void AnotherCreateData(DateTime begin, DateTime end, string inventoryCategory="00")
+        public void AnotherCreateData(DateTime begin, DateTime end, string inventoryCategory)
         {
             int result;
 
@@ -94,8 +94,8 @@ namespace ERP20200707.Pages.TjgCgjds
             Console.WriteLine($"结束时间是：{EndDate}");
 
             //result = _context.Database.ExecuteSqlInterpolated($"insert into tjg_cgdj(autoid, id, cinvcode, iunitcost, iquantity, iprice) select a.autoid, a.id, a.cinvcode, a.iUnitCost, a.iQuantity, a.iprice from rdrecords01 a where a.cInvCode in (select cInvCode from Inventory where   cinvccode like '{InventoryCategory.Substring(0, 2)}%') and a.id >= (select min(id) from  RdRecord01 where dDate >= {StartDate} and dDate <= {EndDate}) and (a.iUnitCost > (select top 1 iUnitCost from rdrecords01 where AutoID < a.AutoID and cinvcode = a.cinvcode order by id desc))");
-            var ic = inventoryCategory == null ? "00" : inventoryCategory.Substring(0, 2);
-            result = _context.Database.ExecuteSqlInterpolated($"insert into tjg_cgdj(autoid, id, cinvcode, iunitcost, iquantity, iprice) select a.autoid, a.id, a.cinvcode, a.iUnitCost, a.iQuantity, a.iprice from rdrecords01 a where a.cInvCode in (select cInvCode from Inventory where   cinvccode like '{ic}%') and a.id >= (select min(id) from  RdRecord01 where dDate >= {begin} and dDate <= {end}) and (a.iUnitCost > (select top 1 iUnitCost from rdrecords01 where AutoID < a.AutoID and cinvcode = a.cinvcode order by id desc))");
+            //var ic = inventoryCategory == null ? "03" : inventoryCategory.Substring(0, 2);
+            result = _context.Database.ExecuteSqlInterpolated($"insert into tjg_cgdj(autoid, id, cinvcode, iunitcost, iquantity, iprice) select a.autoid, a.id, a.cinvcode, a.iUnitCost, a.iQuantity, a.iprice from rdrecords01 a where a.cInvCode in (select cInvCode from Inventory where   cinvccode like {inventoryCategory}) and a.id >= (select min(id) from  RdRecord01 where dDate >= {begin} and dDate <= {end}) and (a.iUnitCost > (select top 1 iUnitCost from rdrecords01 where AutoID < a.AutoID and cinvcode = a.cinvcode order by id desc))");
 
             Console.WriteLine($"insert时{result}行受影响");
 
@@ -119,7 +119,17 @@ namespace ERP20200707.Pages.TjgCgjds
             Warehouses = new SelectList(await warehouseQuery.Distinct().ToListAsync());
             InventoryCategorys = new SelectList(await inventoryCategoryQuery.Distinct().ToListAsync());
 
-            this.AnotherCreateData(StartDate, EndDate, InventoryCategory);
+            var ic = InventoryCategory == null ? "03" : InventoryCategory.Substring(0, 2);
+
+            this.AnotherCreateData(StartDate, EndDate, ic);
+
+            IQueryable<TjgCgdj> tjgCgdj = from t in _context.TjgCgdj
+                                          select t;
+
+            if (Warehouse != null)
+            {
+                tjgCgdj = tjgCgdj.Where()
+            }
 
             TjgCgdj = await _context.TjgCgdj.ToListAsync();
         }
