@@ -1,0 +1,85 @@
+﻿@page
+@model ERP20200707.Pages.TjgCgjds.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TjgCgdj</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Autoid" class="control-label"></label>
+                <input asp-for="TjgCgdj.Autoid" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Autoid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Id" class="control-label"></label>
+                <input asp-for="TjgCgdj.Id" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Whcode" class="control-label"></label>
+                <input asp-for="TjgCgdj.Whcode" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Whcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Cgrq" class="control-label"></label>
+                <input asp-for="TjgCgdj.Cgrq" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Cgrq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Cinvcode" class="control-label"></label>
+                <input asp-for="TjgCgdj.Cinvcode" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Cinvcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Iunitcost" class="control-label"></label>
+                <input asp-for="TjgCgdj.Iunitcost" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Iunitcost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Iquantity" class="control-label"></label>
+                <input asp-for="TjgCgdj.Iquantity" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Iquantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Iprice" class="control-label"></label>
+                <input asp-for="TjgCgdj.Iprice" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Iprice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Lautoid" class="control-label"></label>
+                <input asp-for="TjgCgdj.Lautoid" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Lautoid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Lid" class="control-label"></label>
+                <input asp-for="TjgCgdj.Lid" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Lid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TjgCgdj.Liunitcost" class="control-label"></label>
+                <input asp-for="TjgCgdj.Liunitcost" class="form-control" />
+                <span asp-validation-for="TjgCgdj.Liunitcost" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="TjgCgdj.Primaryid" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

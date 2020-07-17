@@ -1,0 +1,85 @@
+﻿@page
+@model ERP20200707.Pages.TjgCgjds.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TjgCgdj</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Autoid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Autoid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Whcode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Whcode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Cgrq)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Cgrq)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Cinvcode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Cinvcode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Iunitcost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Iunitcost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Iquantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Iquantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Iprice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Iprice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Lautoid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Lautoid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Lid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Lid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TjgCgdj.Liunitcost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TjgCgdj.Liunitcost)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TjgCgdj.Primaryid">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
