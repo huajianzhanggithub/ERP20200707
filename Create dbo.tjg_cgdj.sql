@@ -3,3 +3,8 @@ insert into tjg_cgdj(autoid,id,cinvcode,iunitcost,iquantity,iprice) select a.aut
 update tjg_cgdj set lautoid = (select top 1 autoid from rdrecords01 where AutoID < tjg_cgdj.autoid and cinvcode=tjg_cgdj.cinvcode order by id desc);
 update tjg_cgdj  set lid=b.ID,liunitcost=b.iUnitCost from rdrecords01 b where lautoid=b.autoid;
 update tjg_cgdj set whcode=cwhcode,cgrq=dDate from RdRecord01 where RdRecord01.id=tjg_cgdj.id;
+
+select cwhcode,cwhname from warehouse;
+
+ALTER TABLE tjg_cgdj
+ALTER COLUMN whname NVARCHAR (100) NULL,

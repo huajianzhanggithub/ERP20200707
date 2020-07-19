@@ -1,0 +1,139 @@
+﻿@page
+@model ERP20200707.Pages.TjgCgdjs.TjgCgdjsModel
+
+@{
+    ViewData["Title"] = "采购单价表";
+}
+
+<h1 class="text-center">采购单价表</h1>
+
+@*<p>
+        <a asp-page="Create">Create New</a>
+    </p>*@
+<div class="text-center alert alert-warning alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>警告!</strong> 请首先选择<strong>存货大类</strong>！
+</div>
+<div class="row" style="padding:15px;">
+    <form method="get" class="form-inline justify-content-left col-8">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>
+            <label asp-for="@Model.StartDate" class="control-label"></label>
+            <input asp-for="@Model.StartDate" class="form-control" />
+            <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="@Model.EndDate" class="control-label"></label>
+            <input asp-for="@Model.EndDate" class="form-control" />
+            <span asp-validation-for="@Model.EndDate" class="text-danger"></span>
+        </div>
+
+        @*<div>
+                <label asp-for="@Model.Warehouse" class="form-check-label"></label>
+                <select asp-for="Warehouse" asp-items="Model.Warehouses" class="form-control">
+                    <option value="">默认筛选全部仓库</option>
+                </select>
+                <span asp-validation-for="@Model.Warehouses" class="text-danger"></span>
+            </div>*@
+
+        <div>
+            <label asp-for="@Model.InventoryCategory" class="form-check-label"></label>
+            <select asp-for="@Model.InventoryCategory" asp-items="Model.InventoryCategorys" class="form-control">
+                <option value="">默认：03-彩涂板</option>
+            </select>
+            <span asp-validation-for="@Model.Warehouses" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary ml-2">Search</button>
+    </form>
+    <a class="text-decoration-none text-light bg-primary col-4 h2" style="line-height: 1.5;display: inline-block;vertical-align: middle;text-align:center;" asp-page="../TjgCgjgs/Index">采购价格表</a>
+</div>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Autoid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Whcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Cgrq)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Cinvcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Iunitcost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Iquantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Iprice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Lautoid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Lid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TjgCgdjs[0].Liunitcost)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TjgCgdjs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autoid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Whcode)
+                </td>
+                <td>
+                    @{ 
+                        var cgrq = item.Cgrq.Value.ToString("yyyy-MM-dd");
+                    }
+                    @Html.DisplayFor(modelItem => cgrq)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cinvcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iunitcost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iquantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iprice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lautoid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Liunitcost)
+                </td>
+                @*<td>
+                        <a asp-page="./Edit" asp-route-id="@item.Primaryid">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Primaryid">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Primaryid">Delete</a>
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>

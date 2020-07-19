@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using ERP20200707.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ERP20200707.Data
 {
@@ -19,16 +22,8 @@ namespace ERP20200707.Data
         public virtual DbSet<RdRecord01> RdRecord01 { get; set; }
         public virtual DbSet<Rdrecords01> Rdrecords01 { get; set; }
         public virtual DbSet<TjgCgdj> TjgCgdj { get; set; }
+        public virtual DbSet<TjgCgjg> TjgCgjg { get; set; }
         public virtual DbSet<Warehouse> Warehouse { get; set; }
-
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //        {
-        //            if (!optionsBuilder.IsConfigured)
-        //            {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //                optionsBuilder.UseSqlServer("Data Source=192.168.8.8;Initial Catalog=UFDATA_999_2016;Persist Security Info=True;User ID=sa;Password=suifeng12");
-        //            }
-        //        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -435,6 +430,13 @@ namespace ERP20200707.Data
             {
                 entity.HasKey(e => e.Primaryid)
                     .HasName("PK__tjg_cgdj__77EFAA48CBDC661A");
+            });
+
+            modelBuilder.Entity<TjgCgjg>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("tjg_cgjg");
             });
 
             modelBuilder.Entity<Warehouse>(entity =>

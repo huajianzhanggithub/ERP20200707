@@ -1,0 +1,6 @@
+//地址：192.168.8.8   用户名：sa    密码：suifeng12    数据库：UFDATA_999_2016
+Scaffold-DbContext -f -DataAnnotations "Data Source=192.168.8.8;Initial Catalog=UFDATA_999_2016;Persist Security Info=True;User ID=sa;Password=suifeng12" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables Warehouse,Department,InventoryClass,tjg_cgdj,tjg_cgjg,rdrecords01,Inventory,RdRecord01
+//根据卷号查询数据
+select a.cinvcode,cInvName,cInvStd,cBatch,iQuantity,iNum,cposcode,a.cWhCode 
+from InvPosition a,Inventory b 
+where cBatch='” ＋ 编辑框1.内容 ＋ “' and a.cinvcode=b.cinvcode

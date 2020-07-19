@@ -1,0 +1,120 @@
+﻿@page
+@model ERP20200707.Pages.TjgCgjgs.IndexModel
+@{
+    ViewData["Title"] = "采购价格表";
+}
+<h1 class="text-center">采购价格表</h1>
+
+<form method="get" class="form-inline justify-content-center border p-5  border-success">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div>
+        <label asp-for="@Model.Warehouse" class="form-check-label h3"></label>
+        <select asp-for="Warehouse" asp-items="Model.Warehouses" class="form-control">
+            <option value="">默认筛选全部仓库</option>
+        </select>
+        <span asp-validation-for="@Model.Warehouses" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary ml-2">筛选</button>
+</form>
+
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            @*<th>
+                仓库编码
+            </th>
+            <th>
+                仓库名称
+            </th>*@
+            <th>
+                入库日期
+            </th>
+            <th>
+                单据编号
+            </th>
+            <th>
+                存货名称
+            </th>
+            <th>
+                规格型号
+            </th>
+            <th>
+                数量
+            </th>
+            <th>
+                单价
+            </th>
+            <th>
+                价格
+            </th>
+            <th>
+                上次购买单据编号
+            </th>
+            <th>
+                上次购买单价
+            </th>
+            <th>
+                差额
+            </th>
+            <th>
+                百分比
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TjgCgjgs)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Whcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CWhName)
+                </td>*@
+                <td>
+                    @{
+                        var rkrq = item.Cgrq.Value.ToString("yyyy-MM-dd");
+                    }
+                    @Html.DisplayFor(modelItem => rkrq)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ccode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CInvName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CInvStd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iquantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iunitcost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iprice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lccode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Liunitcost)
+                </td>
+                <td>
+                    @{
+                        decimal difference = (decimal)((item.Iunitcost - item.Liunitcost) * item.Iquantity);
+                    }
+                    @Html.DisplayFor(modelItem => (difference))
+                </td>
+                <td>
+                    @{
+                        var bfb = ((item.Iunitcost - item.Liunitcost) / item.Iunitcost).Value.ToString("P");
+                    }
+                    @Html.DisplayFor(modelItem => bfb)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
