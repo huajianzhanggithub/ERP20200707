@@ -9,6 +9,8 @@ using ERP20200707.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace ERP20200707.Pages.TjgCgjgs
 {
@@ -27,6 +29,33 @@ namespace ERP20200707.Pages.TjgCgjgs
         public SelectList Warehouses { get; set; }
 
         public IList<TjgCgjg> TjgCgjgs { get; set; }
+        public IActionResult Excel(IList<string> datas)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Export.xlsx");
+                var currentRow = 1;
+                worksheet.Cell(currentRow, 1).Value = "Id";
+                worksheet.Cell(currentRow, 2).Value = "Username";
+                foreach (var user in datas)
+                {
+                    currentRow++;
+                    //worksheet.Cell(currentRow, 1).Value = user.Id;
+                    //worksheet.Cell(currentRow, 2).Value = user.Username;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Export.xlsx");
+                }
+            }
+        }
         public async Task OnGetAsync()
         {
             IQueryable<string> warehouseQuery = from a in _context.Warehouse
