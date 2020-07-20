@@ -29,19 +29,60 @@ namespace ERP20200707.Pages.TjgCgjgs
         public SelectList Warehouses { get; set; }
 
         public IList<TjgCgjg> TjgCgjgs { get; set; }
-        public IActionResult Excel(IList<string> datas)
+
+        public IActionResult OnGetExcel()
         {
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Export.xlsx");
                 var currentRow = 1;
-                worksheet.Cell(currentRow, 1).Value = "Id";
-                worksheet.Cell(currentRow, 2).Value = "Username";
-                foreach (var user in datas)
+                worksheet.Cell(currentRow, 1).Value = "仓库编码";
+                worksheet.Cell(currentRow, 2).Value = "仓库名称";
+                worksheet.Cell(currentRow, 3).Value = "入库日期";
+                worksheet.Cell(currentRow, 4).Value = "单据编号";
+                worksheet.Cell(currentRow, 5).Value = "存货名称";
+                worksheet.Cell(currentRow, 6).Value = "规格型号";
+                worksheet.Cell(currentRow, 7).Value = "数量";
+                worksheet.Cell(currentRow, 8).Value = "单价";
+                worksheet.Cell(currentRow, 9).Value = "价格";
+                worksheet.Cell(currentRow, 10).Value = "上次购买单据编号";
+                worksheet.Cell(currentRow, 11).Value = "上次购买单价";
+                worksheet.Cell(currentRow, 12).Value = "差额";
+                worksheet.Cell(currentRow, 13).Value = "百分比";
+
+                IQueryable<TjgCgjg> tjgCgjgs;
+
+                if (!string.IsNullOrEmpty(Warehouse))
+                {
+                    tjgCgjgs = from t in _context.TjgCgjg
+                               where t.Whcode == Warehouse.Substring(0, 3)
+                               select t;
+                }
+                else
+                {
+                    tjgCgjgs = from t in _context.TjgCgjg
+                               select t;
+                }
+
+                foreach (var item in tjgCgjgs)
                 {
                     currentRow++;
-                    //worksheet.Cell(currentRow, 1).Value = user.Id;
-                    //worksheet.Cell(currentRow, 2).Value = user.Username;
+                    worksheet.Cell(currentRow, 1).Value = item.Whcode;
+                    worksheet.Cell(currentRow, 2).Value = item.CWhName;
+                    var rkrq = item.Cgrq.Value.ToString("yyyy-MM-dd");
+                    worksheet.Cell(currentRow, 3).Value = rkrq;
+                    worksheet.Cell(currentRow, 4).Value = item.Ccode;
+                    worksheet.Cell(currentRow, 5).Value = item.CInvName;
+                    worksheet.Cell(currentRow, 6).Value = item.CInvStd;
+                    worksheet.Cell(currentRow, 7).Value = item.Iquantity;
+                    worksheet.Cell(currentRow, 8).Value = item.Iunitcost;
+                    worksheet.Cell(currentRow, 9).Value = item.Iprice;
+                    worksheet.Cell(currentRow, 10).Value = item.Lccode;
+                    worksheet.Cell(currentRow, 11).Value = item.Liunitcost;
+                    decimal difference = (decimal)((item.Iunitcost - item.Liunitcost) * item.Iquantity);
+                    worksheet.Cell(currentRow, 12).Value = difference;
+                    var bfb = ((item.Iunitcost - item.Liunitcost) / item.Iunitcost).Value.ToString("P");
+                    worksheet.Cell(currentRow, 13).Value = bfb;
                 }
 
                 using (var stream = new MemoryStream())

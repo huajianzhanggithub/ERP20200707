@@ -16,17 +16,18 @@
     </div>
     <button type="submit" class="btn btn-primary ml-2">筛选</button>
 </form>
+<a asp-page-handler="Excel">导出Excel</a>
 
 
 <table class="table table-bordered">
     <thead class="table-dark">
         <tr>
             @*<th>
-                仓库编码
-            </th>
-            <th>
-                仓库名称
-            </th>*@
+                    仓库编码
+                </th>
+                <th>
+                    仓库名称
+                </th>*@
             <th>
                 入库日期
             </th>
@@ -67,11 +68,11 @@
         {
             <tr>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.Whcode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CWhName)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.Whcode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CWhName)
+                    </td>*@
                 <td>
                     @{
                         var rkrq = item.Cgrq.Value.ToString("yyyy-MM-dd");
