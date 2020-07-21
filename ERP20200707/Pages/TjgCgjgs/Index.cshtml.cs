@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ClosedXML.Excel;
 using System.IO;
+using ClosedXML.Attributes;
 
 namespace ERP20200707.Pages.TjgCgjgs
 {
@@ -34,7 +35,22 @@ namespace ERP20200707.Pages.TjgCgjgs
         {
             using (var workbook = new XLWorkbook())
             {
-                var worksheet = workbook.Worksheets.Add("Export.xlsx");
+                var worksheet = workbook.Worksheets.Add("Sheet1");
+                IXLStyle style = worksheet.Style;
+
+                style.Font.Bold = true;
+                style.Font.FontColor = XLColor.Black;
+                style.Font.FontName = "微软雅黑";
+                style.Font.FontSize = 12;
+                //style.Font.Italic = true;
+                style.Font.Shadow = false;
+                //style.Font.Underline = XLFontUnderlineValues.Double;
+
+                for (int i = 0; i < worksheet.ColumnCount(); i++)
+                {
+
+                }
+
                 var currentRow = 1;
                 worksheet.Cell(currentRow, 1).Value = "仓库编码";
                 worksheet.Cell(currentRow, 2).Value = "仓库名称";
@@ -79,11 +95,30 @@ namespace ERP20200707.Pages.TjgCgjgs
                     worksheet.Cell(currentRow, 9).Value = item.Iprice;
                     worksheet.Cell(currentRow, 10).Value = item.Lccode;
                     worksheet.Cell(currentRow, 11).Value = item.Liunitcost;
-                    decimal difference = (decimal)((item.Iunitcost - item.Liunitcost) * item.Iquantity);
-                    worksheet.Cell(currentRow, 12).Value = difference;
-                    var bfb = ((item.Iunitcost - item.Liunitcost) / item.Iunitcost).Value.ToString("P");
-                    worksheet.Cell(currentRow, 13).Value = bfb;
+                    //decimal difference = (decimal)((item.Iunitcost - item.Liunitcost) * item.Iquantity);
+                    //worksheet.Cell(currentRow, 12).Value = difference;
+                    worksheet.Cell(currentRow, 12).FormulaA1 = $"=(H{currentRow}-K{currentRow})*G{currentRow}";
+
+                    // 4	#,##0.00 也可以这样写ws.Cell(ro, co).Style.NumberFormat.Format = "$ #,##0.00";
+                    worksheet.Cell(currentRow, 12).Style.NumberFormat.NumberFormatId = 2;
+                    //var bfb = ((item.Iunitcost - item.Liunitcost) / item.Iunitcost).Value.ToString("P");
+                    //worksheet.Cell(currentRow, 13).Value = bfb;
+                    //worksheet.Cell(currentRow, 13).DataType = XLDataType.Number;
+                    worksheet.Cell(currentRow, 13).FormulaR1C1 = $"=(H{currentRow}-K{currentRow})/H{currentRow}";
+                    worksheet.Cell(currentRow, 13).Style.NumberFormat.Format = "0.00%";
                 }
+
+                worksheet.Columns().AdjustToContents();
+                worksheet.CellsUsed().Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                worksheet.CellsUsed().Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                worksheet.CellsUsed().Style.Border.TopBorderColor = XLColor.Black;
+                worksheet.CellsUsed().Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                worksheet.CellsUsed().Style.Border.LeftBorderColor = XLColor.Black;
+                worksheet.CellsUsed().Style.Border.RightBorder = XLBorderStyleValues.Thin;
+                worksheet.CellsUsed().Style.Border.RightBorderColor = XLColor.Black;
+                worksheet.CellsUsed().Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                worksheet.CellsUsed().Style.Border.BottomBorderColor = XLColor.Black;
+
 
                 using (var stream = new MemoryStream())
                 {
